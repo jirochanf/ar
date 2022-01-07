@@ -1,29 +1,56 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <title>ModerlViewerを使ったWebARページ</title>
-  </head>
-  <body>
-  <script type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js">
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    text-align: center;
+    font-size: 1.25em;
+    color: white;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;"
+  >
+    <!-- we use cors proxy to avoid cross-origin problems -->
     
-  </script>
-    
-    <model-viewer  
-    ar
-    alt="Leoモデル"
-    src="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/jirochanf/ar/master/assets/boushi.glb" 
-    ios-src="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/jirochanf/ar/master/assets/boushi.usdz" 
-    style="width:800px;height:1000px;"                  
-                  
-                  background-color="#70BCD1"
-                  shadow-intensity="0.7"
-                  camera-controls
-                  interaction-prompt="auto"
-                  auto-rotate ar magic-leap>
-                  
-    
-    </model-viewer>
-  </body>
-</html>
+    <a-nft
+      type='nft'
+      url='https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/jirochanf/ar/master/assets/ozujo3'
+      smooth='true'
+      smoothCount='5'
+      smoothTolerance='0.01'
+      smoothThreshold='2'
+          >
+      <a-entity
+        gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/jirochanf/ar/master/assets/boushi.glb"
+        scale="15 15 15"
+        position="20 20 0"
+        rotation="0 0 -90"
+      >
+      </a-entity>
+    </a-nft>
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
